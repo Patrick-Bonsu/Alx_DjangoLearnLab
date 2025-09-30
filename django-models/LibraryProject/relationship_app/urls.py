@@ -1,10 +1,15 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import register, list_books, LibraryDetailView  # <-- use 'register', not 'register_view'
 
 urlpatterns = [
+    # Books
     path('books/', views.list_books, name='list_books'),
+    path('books/add/', views.add_book, name='add_book'),
+    path('books/<int:pk>/edit/', views.edit_book, name='edit_book'),
+    path('books/<int:pk>/delete/', views.delete_book, name='delete_book'),
+
+    # Library Details
     path('library/<int:pk>/', views.LibraryDetailView.as_view(), name='library_detail'),
     
     # Authentication
@@ -16,13 +21,4 @@ urlpatterns = [
     path('admin-view/', views.admin_view, name='admin_view'),
     path('librarian-view/', views.librarian_view, name='librarian_view'),
     path('member-view/', views.member_view, name='member_view'),
-    
-    #Book Permissions URLs
-    path('books/add/', views.add_book, name='add_book'),
-    path('books/<int:pk>/edit/', views.edit_book, name='edit_book'),
-    path('books/<int:pk>/delete/', views.delete_book, name='delete_book'),
-    
-    # Existing URLs...
-    path('books/', views.list_books, name='list_books'),
-
 ]
